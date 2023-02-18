@@ -1,0 +1,118 @@
+zabbix_export:
+  version: '6.2'
+  date: '2023-02-18T10:49:30Z'
+  template_groups:
+    -
+      uuid: e960332b3f6c46a1956486d4f3f99fce
+      name: 'Templates/Server hardware'
+  templates:
+    -
+      uuid: b7602f57097640df8f618fbf945b8709
+      template: mmc-health-check-api
+      name: mmc-health-check-api
+      description: 'Get SanDisk microSD Health Status'
+      groups:
+        -
+          name: 'Templates/Server hardware'
+      items:
+        -
+          uuid: 0e7eaabc0b2340ae9206b34fc935e7ee
+          name: 'mmc-health-check-api: Health Status Raw'
+          type: HTTP_AGENT
+          key: mmc-health-check-api
+          history: '0'
+          trends: '0'
+          value_type: TEXT
+          url: 'https://{HOST.CONN}:8443'
+          headers:
+            -
+              name: Authorization
+              value: 'Bearer {$MMC.PSK}'
+        -
+          uuid: fac897b0a98c4d85888a410e4bb198b3
+          name: 'mmc-health-check-api: Feature Revision'
+          type: DEPENDENT
+          key: mmc-health-check-api.feature_revision
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''Feature Revision'']'
+          master_item:
+            key: mmc-health-check-api
+        -
+          uuid: e21fc43927fe4691af206d34a45237c9
+          name: 'mmc-health-check-api: Generation Identifier'
+          type: DEPENDENT
+          key: mmc-health-check-api.generation_identifier
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''Generation Identifier'']'
+          master_item:
+            key: mmc-health-check-api
+        -
+          uuid: 23ac4a641bc9405e9246ad9a9b79b571
+          name: 'mmc-health-check-api: Health Status in % used'
+          type: DEPENDENT
+          key: mmc-health-check-api.health_status
+          delay: '0'
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''Health Status in % used'']'
+          master_item:
+            key: mmc-health-check-api
+        -
+          uuid: f052fead00dd4d26b07a99a405b62460
+          name: 'mmc-health-check-api: Manufacture date'
+          type: DEPENDENT
+          key: mmc-health-check-api.manufacture_date
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''Manufacture date'']'
+          master_item:
+            key: mmc-health-check-api
+        -
+          uuid: 05744351b4a546ec9a9f1c72baaed3b3
+          name: 'mmc-health-check-api: Programmable Product String'
+          type: DEPENDENT
+          key: mmc-health-check-api.programmable_product_string
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''Programmable Product String'']'
+          master_item:
+            key: mmc-health-check-api
+        -
+          uuid: 4cd23b04edf745b499f706cca2df0702
+          name: 'mmc-health-check-api: SD Identifier'
+          type: DEPENDENT
+          key: mmc-health-check-api.sd_identifier
+          delay: '0'
+          trends: '0'
+          value_type: CHAR
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$[''SD Identifier'']'
+          master_item:
+            key: mmc-health-check-api

@@ -13,3 +13,10 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Server Secret
+*.csr
+*.pem
+*.crt
+*.psk
+*.log
