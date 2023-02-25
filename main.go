@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"path"
@@ -87,15 +87,11 @@ func response() (result []byte, err error) {
 	if _, err := os.Stat(devPath); err != nil {
 		return nil, err
 	}
-	sudoPath, err := exec.LookPath("sudo")
-	if err != nil {
-		return nil, err
-	}
 	mmcPath, err := exec.LookPath("mmc")
 	if err != nil {
 		return nil, err
 	}
-	stdout, err := exec.Command(sudoPath, mmcPath, "gen_cmd", "read", devPath, fmt.Sprintf("0x%X", sendCMD56Arg)).Output()
+	stdout, err := exec.Command(mmcPath, "gen_cmd", "read", devPath, fmt.Sprintf("0x%X", sendCMD56Arg)).Output()
 	if err != nil {
 		return nil, err
 	}
